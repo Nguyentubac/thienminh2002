@@ -1,0 +1,99 @@
+#include<iostream>
+
+using namespace std;
+
+class Mayinlaser{
+	protected:
+		int dpi;
+	public: 
+		Mayinlaser(){
+			dpi = 600;
+		}
+		Mayinlaser(int dpi){
+			this->dpi = dpi;
+		}
+/*		void Xuat(){
+			cout<<" DPI =  "<<dpi;
+		}*/
+		friend istream& operator>>(istream& is, Mayinlaser &ls){
+			cout<<"Nhap chi so DPI : ";is>>ls.dpi;
+			return is;
+		}
+		friend ostream& operator<<(ostream& os, Mayinlaser &ls){
+			os<<" DPI: "<< ls.dpi<<endl;
+			return os;
+		}
+		~Mayinlaser(){}
+};
+class Mayinmau{
+	protected:
+		int chisomau;
+	public:
+	Mayinmau(){
+		chisomau = 300;
+	}
+	Mayinmau(int chisomau){
+		this->chisomau= chisomau;
+	}
+	/*void Xuat(){
+		cout<<"Chi so mau "<<chisomau<<endl;
+	}*/
+	friend istream& operator>>(istream& is, Mayinmau &mau){
+			cout<<"Nhap chi so mau : ";is>>mau.chisomau;
+			return is;
+			}
+	friend ostream& operator<<(ostream& os, Mayinmau &mau){
+		os<<" Chi so Mau : "<<mau.chisomau<<endl;
+		return os;
+	}
+	~Mayinmau(){}
+
+};
+class Mayinlasermau:public Mayinlaser,public Mayinmau{
+	protected:
+		string mamayin;
+		int soluong;
+	public:
+		Mayinlasermau(){
+			mamayin = "2022.n";
+			soluong  = 0;
+		}
+		Mayinlasermau(int dpi, int chisomau, string mamayin, int soluong):Mayinlaser(dpi),Mayinmau(chisomau){
+				this->mamayin = mamayin;
+				this->soluong = soluong;
+		}
+		~Mayinlasermau(){}
+		friend istream& operator>>(istream& is, Mayinlasermau &lsm1){
+			cout<<"Nhap ma may in : ";getline(is,lsm1.mamayin);
+			cout<<"Nhap so luong : "; is>>lsm1.soluong;
+			is>>(Mayinlaser&) lsm1;
+			is>>(Mayinmau&) lsm1;
+			return is;}
+		friend ostream& operator<<(ostream& os, Mayinlasermau &lsm1){
+			os<<"Ma may in : "<<lsm1.mamayin<<endl;
+			os<<" So luong : "<<lsm1.soluong<<endl;
+
+			os<<(Mayinlaser&) lsm1; // kế thừa đa năng hóa toán tử //
+			os<<(Mayinmau&) lsm1;
+			//Mayinlaser::Xuat();os<<endl;
+			//Mayinmau::Xuat();os<<endl;
+			return os;
+		}
+		/*void Xuat(){
+			cout<<" Ma may in : "<<mamayin<<endl;
+			cout<<" So luong : "<<soluong<<endl;
+			Mayinlaser::Xuat();cout<<endl;
+			Mayinmau::Xuat();cout<<endl;
+		}*/
+
+};
+
+int main(){
+	Mayinlasermau lsm1;
+	lsm1 = {5000,400,"2020.o",20};
+	cout<<"Nhap thong tin MAY IN LASER:";
+	cin>>lsm1;
+	cout<<"THONG TIN MA IN LASER \n";
+	cout<<lsm1;
+	return 0;
+}
