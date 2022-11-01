@@ -1,0 +1,68 @@
+#include<iostream>
+
+using namespace std;
+class Hinh{
+    private:
+        string mau;
+    public:
+       void Nhap(){
+            cout<<"Nhap mau : ";getline(cin,mau);
+       }
+        void Xuat(){
+            cout<<"Mau : "<<mau;
+        }
+};
+class HinhTron : public Hinh{
+    private:
+        float r;
+    public:
+        void Nhap(){
+            cout<<"Nhap ban kinh : ";cin>>r;
+        }
+        void Xuat(){
+            cout<<"Ban kinh cua hinh tron la : "<<r<<endl;
+        }
+};
+
+int main(){
+    HinhTron htr1;
+    htr1.Nhap();
+    htr1.Xuat();
+} 
+///////////////////////////////////////////
+#include<iostream>
+
+using namespace std;
+class Hinh{
+    private:
+        string mau;
+    public:
+       virtual void Nhap(){
+            cout<<"Nhap mau : ";getline(cin,mau);
+       }
+       vỉrtual void Xuat(){
+            cout<<"Mau : "<<mau;
+        }
+};
+class HinhTron : public Hinh{
+    private:
+        float r;
+    public:
+        void Nhap(){
+            cout<<"Nhap ban kinh : ";cin>>r;
+        }
+        void Xuat(){
+            cout<<"Ban kinh cua hinh tron la : "<<r<<endl;
+        }
+};
+
+int main(){
+    HinhTron htr1;
+    Hinh *h1;
+    h1 = &htr1;
+    h1->Nhap();
+    htr1.Xuat(); // sẽ gọi tới hàm Xuất (nó phải được khai báo là hàm thât ) của lớp con khi ở lớp cha hàm Xuất được khai báo là hàm ảo(virtual). 
+}
+**********************************
+// các đối tượng thuộc các lớp dẫn xuất khác nhau được thực thi theo những cách khác nhau .
+// các lớp thược lớp dẫn xuất khác nhau có thể được đối xử như nhau .
