@@ -1,0 +1,124 @@
+#include<iostream>
+#include<string.h>
+#include<iomanip>
+using namespace std;
+    class HocVien{
+protected:
+    string id;
+    string name;
+    int born;
+    string khoa_hoc;
+public:
+    HocVien(){
+        id = "NULL";
+        name = "NULL";
+        born = 0;
+        khoa_hoc = "0";
+    }
+    HocVien(string id, string name, int born, string khoa_hoc){
+        this ->id = id;
+        this ->name = name;
+        this -> born= born;
+        this ->khoa_hoc = khoa_hoc;
+    }
+    void NhapThongTin(){
+        cin.ignore();
+        cout<<"Ma sinh vien : "; getline(cin, id);
+        cout<<"Ho va ten : ";getline(cin, name);
+        cout<<"Nam sinh : "; cin>>born;
+        cin.ignore();
+        cout<<"Khoa hoc : "; getline(cin, khoa_hoc);
+    }
+    void InThongTin(){
+        cout<<"----------Thong tin cua hoc vien --------";
+        cout<<"\nMa sinh vien : "<<id;
+        cout<<"\nHo va ten : "<<name;
+        cout<<"\nNam sinh : "<<born;
+        cout<<"\nKhoa hoc : "<<khoa_hoc<<endl;
+
+    }
+    
+};
+class SinhVien : public HocVien{
+    protected:
+        string tenhocphan;
+        int sotin;
+    public:
+        SinhVien(){
+            tenhocphan = "NULL";
+            sotin = 0;
+        }
+        SinhVien(string id, string name, int born , string khoa_hoc, string tenhocphan , int sotin):HocVien(id, name, born , khoa_hoc){
+            this -> tenhocphan = tenhocphan;
+            this -> sotin = sotin;
+        }
+        friend istream& operator>>(istream& is, SinhVien &sv){
+            sv.NhapThongTin();
+            cout<<"Nhap ten hoc phan : ";
+            //is>>sv.tenhocphan;
+            getline(is, sv.tenhocphan);
+            cout<<"Nhap so tin chi : ";is>>sv.sotin;
+            return is;
+        }
+        friend ostream& operator<<(ostream& os, SinhVien &sv){
+            sv.InThongTin();
+            os<<"Ten hoc phan : "<<sv.tenhocphan<<endl;
+            os<<"So tin chi : "<<sv.sotin<<endl;
+            return os;
+        }
+        friend void Show_nien_khoa(SinhVien a[],int n){
+            for(int i = 0; i<n;i++){
+                if(a[i].khoa_hoc == "2021-2025" ){
+                    cout<<"_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n";
+                    cout<<a[i].id<<setw(20)<<"|"<<a[i].name<<setw(20)<<"|"<<a[i].born;
+                    cout<<endl;
+            }
+            }
+        }
+        friend void Show_hoc_phan(SinhVien a[],int n){
+            for(int i = 0; i<n;i++){
+                if(a[i].tenhocphan == "Tri tue nhan tao" ){
+                    cout<<"_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n";
+                    cout<<a[i].id<<setw(20)<<"|"<<a[i].name<<setw(20)<<"|"<<a[i].born;
+                    cout<<endl;
+            }
+            }
+        }
+        friend void Show_alphabet(SinhVien a[],int n){
+            for(int i =0 ; i<n-1;i++){
+                for(int j= i+1;j<n;j++){
+                    if( a[i].id > a[j].id ){
+                        swap(a[i],a[j]);
+                    }
+                }
+            }
+            for(int i =0; i<n;i++)
+                cout<<a[i];
+        }
+};
+void swap(SinhVien x, SinhVien y){
+    SinhVien temp = x;
+    x = y;
+    y= temp;
+};
+
+int main(){
+    int n ;
+    cout<<"Nhap so luong sinh vien : "; cin>>n;
+    SinhVien a[n];
+    for(int i = 0; i<n ;i++){
+        cout<<"Nhap thong tin cua sinh vien thu "<<i+1<<" \n";
+        cin>>a[i];
+    }
+        cout<<"Thong tin cua sinh vien da nhap \n";
+    for(int i =0;i<n;i++){
+        cout<<a[i]; //in thong tin cua sinh vien da nhap 
+    }
+    cout<<"Danh sach nhung sinh vien co nien khoa 2021 - 2025 \n";
+    Show_nien_khoa(a, n);
+    cout<<"Danh sach nhung sinh vien co hoc phan la Tri tue nhan tao\n";
+    Show_hoc_phan(a,n);
+    cout<<"Danh sach sinh vien theo thu tu tang dan theo ma sinh vien \n";
+    Show_alphabet(a,n);
+
+}
