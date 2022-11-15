@@ -4,9 +4,8 @@
 #include<conio.h>
 using namespace std;
 
-template <class T> T Max(T a, T b){
-  if(a>b) return a;
-  return b;
+template <class T> T Max(int a, int b){
+  return (a+b)/2.0;
 }
 int main(){
     cout<< Max(2,3); // viết hoa đi , viết max là méo chạy được đâu 
