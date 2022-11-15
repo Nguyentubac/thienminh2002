@@ -1,0 +1,13 @@
+// là hàm trừu tượng không phụ thuộc vào kiểu dữ liệu ;
+// dùng để tạo ra các hàm khác nhau chỉ khác nhau về kiểu tham số , trả về
+#include<iostream>
+#include<conio.h>
+using namespace std;
+
+template <class T> T Max(T a, T b){
+  if(a>b) return a;
+  return b;
+}
+int main(){
+    cout<< Max(2,3); // viết hoa đi , viết max là méo chạy được đâu 
+}
